@@ -1,0 +1,11 @@
+[
+    {"nome": "Jennifer", "cidade": "Aracaju", "idade": 25, "salario": 3500},
+    {"nome": "Pedro", "cidade": "Aracaju", "idade": 32, "salario": 4200},
+    {"nome": "Carlos", "cidade": "Salvador", "idade": 28, "salario": 2900},
+    {"nome": "Maria", "cidade": "Recife", "idade": 41, "salario": 5000},
+    {"nome": "Larissa", "cidade": "Boa Viagem", "idade": 21, "salario": 7000},
+    {"nome": "jhonata", "cidade": "Boa Viagem", "idade": 23, "salario": 6100},
+    {"nome": "Kaella", "cidade": "Boa Viagem", "idade": 19, "salario": 5500},
+    {"nome": "Matheus", "cidade": "Boa Viagem", "idade": 20, "salario": 3000},
+   
+]
