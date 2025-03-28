@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="mb-4">
+    {% if livro %}Editar Livro{% else %}Adicionar Livro{% endif %}
+</h1>
+
+<form method="post" action="{% if livro %}/livros/{{ livro.id }}{% else %}/livros{% endif %}">
+    <div class="row g-3">
+        <div class="col-md-6">
+            <label for="titulo" class="form-label">Título</label>
+            <input type="text" class="form-control" id="titulo" name="titulo" 
+                   value="{{ livro.titulo if livro else '' }}" required>
+        </div>
+        
+        <div class="col-md-6">
+            <label for="autor" class="form-label">Autor</label>
+            <input type="text" class="form-control" id="autor" name="autor" 
+                   value="{{ livro.autor if livro else '' }}" required>
+        </div>
+        
+        <div class="col-md-4">
+            <label for="editora" class="form-label">Editora</label>
+            <input type="text" class="form-control" id="editora" name="editora" 
+                   value="{{ livro.editora if livro else '' }}" required>
+        </div>
+        
+        <div class="col-md-2">
+            <label for="ano_publicacao" class="form-label">Ano</label>
+            <input type="number" class="form-control" id="ano_publicacao" name="ano_publicacao" 
+                   value="{{ livro.ano_publicacao if livro else '' }}" required>
+        </div>
+        
+        <div class="col-md-3">
+            <label for="genero" class="form-label">Gênero</label>
+            <input type="text" class="form-control" id="genero" name="genero" 
+                   value="{{ livro.genero if livro else '' }}" required>
+        </div>
+        
+        <div class="col-md-3">
+            <label for="quantidade" class="form-label">Quantidade</label>
+            <input type="number" class="form-control" id="quantidade" name="quantidade" 
+                   value="{{ livro.quantidade if livro else 1 }}" min="0" required>
+        </div>
+        
+        <div class="col-12 mt-4">
+            <button type="submit" class="btn btn-primary">
+                {% if livro %}Atualizar{% else %}Adicionar{% endif %}
+            </button>
+            <a href="/livros" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </div>
+</form>
+{% endblock %}

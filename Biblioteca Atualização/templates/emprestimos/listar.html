@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="mb-4">Controle de Empréstimos</h1>
+
+<div class="card mb-4">
+    <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">Novo Empréstimo</h5>
+    </div>
+    <div class="card-body">
+        <form method="post" action="/emprestimos" class="row g-3">
+            <div class="col-md-5">
+                <select name="livro_id" class="form-select" required>
+                    <option value="">Selecione um livro</option>
+                    {% for livro in livros %}
+                    <option value="{{ livro.id }}">{{ livro.titulo }} ({{ livro.autor }})</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-5">
+                <select name="usuario_id" class="form-select" required>
+                    <option value="">Selecione um usuário</option>
+                    {% for usuario in usuarios %}
+                    <option value="{{ usuario.id }}">{{ usuario.nome }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-success w-100">Registrar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>Livro</th>
+                <th>Usuário</th>
+                <th>Data Empréstimo</th>
+                <th>Data Devolução</th>
+                <th>Status</th>
+                <th>Multa</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for emp in emprestimos %}
+            <tr class="{% if not emp.emprestimo.devolvido and emp.multa > 0 %}table-warning{% endif %}">
+                <td>{{ emp.livro.titulo }}</td>
+                <td>{{ emp.usuario.nome }}</td>
+                <td>{{ emp.emprestimo.data_emprestimo.strftime('%d/%m/%Y') }}</td>
+                <td>{{ emp.emprestimo.data_devolucao.strftime('%d/%m/%Y') }}</td>
+                <td>
+                    {% if emp.emprestimo.devolvido %}
+                        <span class="badge bg-success">Devolvido</span>
+                    {% else %}
+                        <span class="badge bg-warning text-dark">Em aberto</span>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if emp.multa > 0 %}
+                        R$ {{ "%.2f"|format(emp.multa) }}
+                    {% else %}
+                        -
+                    {% endif %}
+                </td>
+                <td>
+                    {% if not emp.emprestimo.devolvido %}
+                    <form action="/emprestimos/{{ emp.emprestimo.id }}/devolver" method="post">
+                        <button type="submit" class="btn btn-sm btn-success">Devolver</button>
+                    </form>
+                    {% endif %}
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="7" class="text-center">Nenhum empréstimo registrado</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

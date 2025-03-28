@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="mb-4">Gerenciamento de Livros</h1>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <form method="get" class="row g-3">
+            <div class="col-md-4">
+                <input type="text" name="titulo" class="form-control" placeholder="Título" 
+                       value="{{ filtros.titulo if filtros.titulo else '' }}">
+            </div>
+            <div class="col-md-3">
+                <input type="text" name="autor" class="form-control" placeholder="Autor" 
+                       value="{{ filtros.autor if filtros.autor else '' }}">
+            </div>
+            <div class="col-md-3">
+                <input type="text" name="genero" class="form-control" placeholder="Gênero" 
+                       value="{{ filtros.genero if filtros.genero else '' }}">
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary w-100">Filtrar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<a href="/livros/novo" class="btn btn-success mb-3">Adicionar Livro</a>
+
+<div class="table-responsive">
+    <table class="table table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>Título</th>
+                <th>Autor</th>
+                <th>Editora</th>
+                <th>Ano</th>
+                <th>Gênero</th>
+                <th>Disponíveis</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for livro in livros %}
+            <tr>
+                <td>{{ livro.titulo }}</td>
+                <td>{{ livro.autor }}</td>
+                <td>{{ livro.editora }}</td>
+                <td>{{ livro.ano_publicacao }}</td>
+                <td>{{ livro.genero }}</td>
+                <td>{{ livro.quantidade }}</td>
+                <td>
+                    <a href="/livros/{{ livro.id }}/editar" class="btn btn-sm btn-warning">Editar</a>
+                    <form action="/livros/{{ livro.id }}/remover" method="post" class="d-inline">
+                        <button type="submit" class="btn btn-sm btn-danger">Remover</button>
+                    </form>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="7" class="text-center">Nenhum livro cadastrado</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1 class="my-4">
+        {% if livro %}
+            ✏️ Editar Livro
+        {% else %}
+            📖 Adicionar Novo Livro
+        {% endif %}
+    </h1>
+
+    <form method="post" action="{% if livro %}/livros/{{ livro.id }}{% else %}/livros{% endif %}" class="needs-validation" novalidate>
+        <!-- Título -->
+        <div class="mb-3">
+            <label for="titulo" class="form-label">Título do Livro</label>
+            <input type="text" class="form-control" id="titulo" name="titulo" 
+                   value="{{ livro.titulo if livro else '' }}" required>
+            <div class="invalid-feedback">
+                Por favor, insira o título do livro.
+            </div>
+        </div>
+
+        <!-- Autor -->
+        <div class="mb-3">
+            <label for="autor" class="form-label">Autor</label>
+            <input type="text" class="form-control" id="autor" name="autor"
+                   value="{{ livro.autor if livro else '' }}" required>
+            <div class="invalid-feedback">
+                Por favor, insira o nome do autor.
+            </div>
+        </div>
+
+        <!-- Editora -->
+        <div class="mb-3">
+            <label for="editora" class="form-label">Editora</label>
+            <input type="text" class="form-control" id="editora" name="editora"
+                   value="{{ livro.editora if livro else '' }}" required>
+        </div>
+
+        <!-- Ano de Publicação -->
+        <div class="mb-3">
+            <label for="ano_publicacao" class="form-label">Ano de Publicação</label>
+            <input type="number" class="form-control" id="ano_publicacao" name="ano_publicacao"
+                   value="{{ livro.ano_publicacao if livro else '' }}" min="1000" max="{{ now().year }}" required>
+        </div>
+
+        <!-- Gênero -->
+        <div class="mb-3">
+            <label for="genero" class="form-label">Gênero Literário</label>
+            <input type="text" class="form-control" id="genero" name="genero"
+                   value="{{ livro.genero if livro else '' }}" required>
+        </div>
+
+        <!-- Quantidade -->
+        <div class="mb-3">
+            <label for="quantidade" class="form-label">Quantidade Disponível</label>
+            <input type="number" class="form-control" id="quantidade" name="quantidade"
+                   value="{{ livro.quantidade if livro else 1 }}" min="0" required>
+        </div>
+
+        <!-- Botões -->
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+            <a href="/livros" class="btn btn-secondary me-md-2">
+                <i class="bi bi-x-circle"></i> Cancelar
+            </a>
+            <button type="submit" class="btn btn-primary">
+                {% if livro %}
+                    <i class="bi bi-save"></i> Atualizar Livro
+                {% else %}
+                    <i class="bi bi-plus-circle"></i> Cadastrar Livro
+                {% endif %}
+            </button>
+        </div>
+    </form>
+</div>
+
+<!-- Validação do Bootstrap -->
+<script>
+(() => {
+  'use strict'
+  const forms = document.querySelectorAll('.needs-validation')
+  Array.from(forms).forEach(form => {
+    form.addEventListener('submit', event => {
+      if (!form.checkValidity()) {
+        event.preventDefault()
+        event.stopPropagation()
+      }
+      form.classList.add('was-validated')
+    }, false)
+  })
+})()
+</script>
+{% endblock %}

@@ -1,0 +1,77 @@
+/* Estilos globais */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+}
+
+/* Navegação */
+.navbar {
+    box-shadow: 0 2px 4px rgba(0,0,0,.1);
+}
+
+.navbar-brand {
+    font-weight: 700;
+}
+
+/* Cards */
+.card {
+    border: none;
+    box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,.075);
+}
+
+.card-header {
+    font-weight: 600;
+}
+
+/* Tabelas */
+.table {
+    margin-bottom: 0;
+}
+
+.table th {
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+}
+
+/* Formulários */
+.form-control, .form-select {
+    padding: 0.5rem 0.75rem;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .table-responsive {
+        border: 0;
+    }
+    
+    .table thead {
+        display: none;
+    }
+    
+    .table tr {
+        display: block;
+        margin-bottom: 1rem;
+        border: 1px solid #dee2e6;
+        border-radius: 0.25rem;
+    }
+    
+    .table td {
+        display: block;
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+        border-bottom: 1px solid #dee2e6;
+    }
+    
+    .table td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 0.75rem;
+        width: 45%;
+        padding-right: 1rem;
+        font-weight: 600;
+        text-align: left;
+    }
+}

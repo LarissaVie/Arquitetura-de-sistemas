@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="mb-4">Gerenciamento de Usuários</h1>
+
+<div class="card mb-4">
+    <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">Adicionar Usuário</h5>
+    </div>
+    <div class="card-body">
+        <form method="post" action="/usuarios" class="row g-3">
+            <div class="col-md-5">
+                <input type="text" name="nome" class="form-control" placeholder="Nome completo" required>
+            </div>
+            <div class="col-md-5">
+                <input type="email" name="email" class="form-control" placeholder="E-mail" required>
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-success w-100">Adicionar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>Nome</th>
+                <th>E-mail</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for usuario in usuarios %}
+            <tr>
+                <td>{{ usuario.nome }}</td>
+                <td>{{ usuario.email }}</td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="2" class="text-center">Nenhum usuário cadastrado</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
